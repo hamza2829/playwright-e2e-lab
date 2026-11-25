@@ -1,0 +1,63 @@
+name: Failure drill
+
+# Opt-in only. Runs the deliberately broken test in tests/drill/ against a
+# slowed-down API so the failure, its trace and the RCA in
+# docs/failure-drill-rca.md can be reproduced on demand.
+# The "broken" variant is EXPECTED to fail (red run). "fixed" proves the fix.
+
+on:
+  workflow_dispatch:
+    inputs:
+      variant:
+        description: Which version of the test to run
+        type: choice
+        options: [broken, fixed]
+        default: broken
+      latency_ms:
+        description: Artificial delay for POST /api/cart (ms)
+        type: string
+        default: '400'
+
+permissions:
+  contents: read
+
+jobs:
+  drill:
+    name: Drill · ${{ inputs.variant }} · ${{ inputs.latency_ms }} ms
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CI: 'true'
+      DRILL: '1'
+      DRILL_VARIANT: ${{ inputs.variant }}
+      CART_LATENCY_MS: ${{ inputs.latency_ms }}
+      ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Run the drill test
+        run: npx playwright test --project=drill --retries=1
+      - name: Analyze the result
+        if: ${{ !cancelled() }}
+        run: npm run analyze -- reports --slow-ms 5000 --top 2 --out reports/test-health.md
+      - name: Upload HTML report (with trace, screenshot and video of the failure)
+        uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: failure-drill-report-${{ inputs.variant }}
+          path: |
+            playwright-report/
+            reports/
+          retention-days: 30
+      - name: Upload raw test-results
+        uses: actions/upload-artifact@v7
+        if: ${{ failure() }}
+        with:
+          name: failure-drill-test-results
+          path: test-results/
+          retention-days: 30

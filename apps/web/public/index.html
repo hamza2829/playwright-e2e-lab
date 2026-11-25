@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lab Shop</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#/products">Lab Shop</a>
+      <nav aria-label="Main" id="nav" hidden>
+        <a href="#/products" data-testid="nav-products">Products</a>
+        <a href="#/cart" data-testid="nav-cart">Cart <span class="badge" data-testid="cart-count" aria-label="Items in cart">0</span></a>
+        <a href="#/orders" data-testid="nav-orders">Orders</a>
+        <a href="#/admin" data-testid="nav-admin" hidden>Admin</a>
+        <span class="who" data-testid="current-user"></span>
+        <button type="button" class="link" data-testid="logout">Log out</button>
+      </nav>
+    </header>
+    <main id="view" tabindex="-1"></main>
+    <div class="toast" role="status" aria-live="polite" data-testid="toast"></div>
+    <footer>Demo application for the playwright-e2e-lab project. Not a real shop.</footer>
+    <script src="/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+{
+  "name": "playwright-e2e-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "End-to-end test automation lab: Playwright Test + TypeScript against a demo web shop and a demo Electron notes app, with a GenAI test-drafting helper and flaky/slow test analysis.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "web:start": "tsx apps/web/src/server.ts",
+    "desktop:build": "tsc -p apps/desktop/tsconfig.json",
+    "desktop:start": "npm run desktop:build && electron apps/desktop",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p apps/desktop/tsconfig.json",
+    "test:unit": "tsx --test tools/analyze-runs/analyze.test.ts genai/src/genai.test.ts",
+    "test:web": "playwright test --project=chromium --project=firefox --project=webkit",
+    "test:desktop": "npm run desktop:build && playwright test --project=desktop",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "test:drill": "cross-env DRILL=1 CART_LATENCY_MS=400 playwright test --project=drill --retries=1",
+    "genai:draft": "tsx genai/src/cli.ts draft",
+    "genai:evaluate": "tsx genai/src/cli.ts evaluate",
+    "analyze": "tsx tools/analyze-runs/cli.ts",
+    "report": "playwright show-report"
+  },
+  "dependencies": {
+    "express": "^5.3.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "@types/express": "^5.0.6",
+    "@types/node": "^20.19.43",
+    "cross-env": "^10.1.0",
+    "electron": "^39.8.10",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

@@ -1,0 +1,10 @@
+node_modules/
+test-results/
+playwright-report/
+blob-report/
+reports/
+apps/desktop/dist/
+genai/out/
+history/
+.DS_Store
+*.log

@@ -1,0 +1,615 @@
+{
+ "config": {
+  "argv": [
+   "C:\\Program Files\\nodejs\\node.exe",
+   "<repo>\\node_modules\\@playwright\\test\\cli.js",
+   "test",
+   "--project=drill",
+   "--retries=2",
+   "--repeat-each=4"
+  ],
+  "configFile": "<repo>\\playwright.config.ts",
+  "rootDir": "<repo>/tests",
+  "failOnFlakyTests": false,
+  "forbidOnly": false,
+  "fullyParallel": true,
+  "globalSetup": null,
+  "globalTeardown": null,
+  "globalTimeout": 0,
+  "grep": {},
+  "grepInvert": null,
+  "maxFailures": 0,
+  "metadata": {
+   "actualWorkers": 4
+  },
+  "preserveOutput": "always",
+  "projects": [
+   {
+    "outputDir": "<repo>/test-results",
+    "repeatEach": 1,
+    "retries": 2,
+    "metadata": {
+     "actualWorkers": 4
+    },
+    "id": "chromium",
+    "name": "chromium",
+    "testDir": "<repo>/tests/web",
+    "testIgnore": [],
+    "testMatch": [
+     "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+    ],
+    "timeout": 30000
+   },
+   {
+    "outputDir": "<repo>/test-results",
+    "repeatEach": 1,
+    "retries": 2,
+    "metadata": {
+     "actualWorkers": 4
+    },
+    "id": "firefox",
+    "name": "firefox",
+    "testDir": "<repo>/tests/web",
+    "testIgnore": [],
+    "testMatch": [
+     "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+    ],
+    "timeout": 30000
+   },
+   {
+    "outputDir": "<repo>/test-results",
+    "repeatEach": 1,
+    "retries": 2,
+    "metadata": {
+     "actualWorkers": 4
+    },
+    "id": "webkit",
+    "name": "webkit",
+    "testDir": "<repo>/tests/web",
+    "testIgnore": [],
+    "testMatch": [
+     "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+    ],
+    "timeout": 30000
+   },
+   {
+    "outputDir": "<repo>/test-results",
+    "repeatEach": 1,
+    "retries": 2,
+    "metadata": {
+     "actualWorkers": 4
+    },
+    "id": "desktop",
+    "name": "desktop",
+    "testDir": "<repo>/tests/desktop",
+    "testIgnore": [],
+    "testMatch": [
+     "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+    ],
+    "timeout": 60000
+   },
+   {
+    "outputDir": "<repo>/test-results",
+    "repeatEach": 4,
+    "retries": 2,
+    "metadata": {
+     "actualWorkers": 4
+    },
+    "id": "drill",
+    "name": "drill",
+    "testDir": "<repo>/tests/drill",
+    "testIgnore": [],
+    "testMatch": [
+     "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+    ],
+    "timeout": 30000
+   }
+  ],
+  "filteredProjects": [
+   {
+    "grep": {},
+    "grepInvert": null,
+    "outputDir": "<repo>\\test-results",
+    "repeatEach": 4,
+    "retries": 2,
+    "metadata": {
+     "actualWorkers": 4
+    },
+    "name": "drill",
+    "testDir": "<repo>\\tests\\drill",
+    "snapshotDir": "<repo>\\tests\\drill",
+    "testIgnore": [],
+    "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+    "timeout": 30000,
+    "use": {
+     "baseURL": "http://localhost:3100",
+     "testIdAttribute": "data-testid",
+     "trace": "retain-on-failure",
+     "screenshot": "only-on-failure",
+     "video": "retain-on-failure",
+     "actionTimeout": 10000,
+     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/159.0.8154.6 Safari/537.36",
+     "viewport": {
+      "width": 1280,
+      "height": 720
+     },
+     "screen": {
+      "width": 1920,
+      "height": 1080
+     },
+     "deviceScaleFactor": 1,
+     "isMobile": false,
+     "hasTouch": false,
+     "defaultBrowserType": "chromium"
+    },
+    "dependencies": [],
+    "ignoreSnapshots": false,
+    "__projectId": "drill"
+   }
+  ],
+  "quiet": false,
+  "reporter": [
+   [
+    "list",
+    null
+   ],
+   [
+    "html",
+    {
+     "outputFolder": "playwright-report",
+     "open": "never"
+    }
+   ],
+   [
+    "json",
+    {
+     "outputFile": "reports/sample-drill/results.json"
+    }
+   ],
+   [
+    "junit",
+    {
+     "outputFile": "reports/sample-drill/junit.xml"
+    }
+   ]
+  ],
+  "reportSlowTests": {
+   "max": 5,
+   "threshold": 300000
+  },
+  "shard": null,
+  "tags": [],
+  "updateSnapshots": "default",
+  "updateSourceMethod": "patch",
+  "version": "1.65.1",
+  "workers": 4,
+  "webServer": {
+   "command": "npx tsx apps/web/src/server.ts",
+   "url": "http://localhost:3100/api/health",
+   "reuseExistingServer": true,
+   "timeout": 60000,
+   "env": {
+    "PORT": "3100",
+    "CART_LATENCY_MS": "10"
+   },
+   "stdout": "ignore",
+   "stderr": "pipe"
+  }
+ },
+ "suites": [
+  {
+   "title": "drill\\cart-badge.drill.spec.ts",
+   "file": "drill/cart-badge.drill.spec.ts",
+   "column": 0,
+   "line": 0,
+   "specs": [],
+   "suites": [
+    {
+     "title": "Failure drill: cart badge",
+     "file": "drill/cart-badge.drill.spec.ts",
+     "line": 20,
+     "column": 6,
+     "specs": [
+      {
+       "title": "BROKEN: badge shows 1 after adding a product",
+       "ok": false,
+       "tags": [
+        "drill"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "drill",
+         "projectName": "drill",
+         "results": [
+          {
+           "workerIndex": 0,
+           "parallelIndex": 0,
+           "status": "failed",
+           "duration": 896,
+           "error": {
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"1\"\u001b[39m\nReceived: \u001b[31m\"0\"\u001b[39m",
+            "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"1\"\u001b[39m\nReceived: \u001b[31m\"0\"\u001b[39m\n    at <repo>\\tests\\drill\\cart-badge.drill.spec.ts:31:19",
+            "location": {
+             "file": "<repo>\\tests\\drill\\cart-badge.drill.spec.ts",
+             "column": 19,
+             "line": 31
+            },
+            "snippet": " \u001b[90m 29 |\u001b[39m     \u001b[90m// reads the old value \"0\". A plain `expect(value)` never retries.\u001b[39m\n \u001b[90m 30 |\u001b[39m     \u001b[36mconst\u001b[39m badge \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m'cart-count'\u001b[39m)\u001b[33m.\u001b[39mtextContent()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 31 |\u001b[39m     expect(badge)\u001b[33m.\u001b[39mtoBe(\u001b[32m'1'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 32 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 33 |\u001b[39m\n \u001b[90m 34 |\u001b[39m   test(\u001b[32m'FIXED: badge shows 1 after adding a product'\u001b[39m\u001b[33m,\u001b[39m { tag\u001b[33m:\u001b[39m \u001b[32m'@drill'\u001b[39m }\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ productsPage }) \u001b[33m=>\u001b[39m {"
+           },
+           "errors": [
+            {
+             "location": {
+              "file": "<repo>\\tests\\drill\\cart-badge.drill.spec.ts",
+              "column": 19,
+              "line": 31
+             },
+             "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"1\"\u001b[39m\nReceived: \u001b[31m\"0\"\u001b[39m\n\n  29 |     // reads the old value \"0\". A plain `expect(value)` never retries.\n  30 |     const badge = await page.getByTestId('cart-count').textContent();\n> 31 |     expect(badge).toBe('1');\n     |                   ^\n  32 |   });\n  33 |\n  34 |   test('FIXED: badge shows 1 after adding a product', { tag: '@drill' }, async ({ productsPage }) => {\n    at <repo>\\tests\\drill\\cart-badge.drill.spec.ts:31:19"
+            }
+           ],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:19.009Z",
+           "annotations": [],
+           "attachments": [],
+           "errorLocation": {
+            "file": "<repo>\\tests\\drill\\cart-badge.drill.spec.ts",
+            "column": 19,
+            "line": 31
+           }
+          },
+          {
+           "workerIndex": 7,
+           "parallelIndex": 0,
+           "status": "failed",
+           "duration": 685,
+           "error": {
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"1\"\u001b[39m\nReceived: \u001b[31m\"0\"\u001b[39m",
+            "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"1\"\u001b[39m\nReceived: \u001b[31m\"0\"\u001b[39m\n    at <repo>\\tests\\drill\\cart-badge.drill.spec.ts:31:19",
+            "location": {
+             "file": "<repo>\\tests\\drill\\cart-badge.drill.spec.ts",
+             "column": 19,
+             "line": 31
+            },
+            "snippet": " \u001b[90m 29 |\u001b[39m     \u001b[90m// reads the old value \"0\". A plain `expect(value)` never retries.\u001b[39m\n \u001b[90m 30 |\u001b[39m     \u001b[36mconst\u001b[39m badge \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m'cart-count'\u001b[39m)\u001b[33m.\u001b[39mtextContent()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 31 |\u001b[39m     expect(badge)\u001b[33m.\u001b[39mtoBe(\u001b[32m'1'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 32 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 33 |\u001b[39m\n \u001b[90m 34 |\u001b[39m   test(\u001b[32m'FIXED: badge shows 1 after adding a product'\u001b[39m\u001b[33m,\u001b[39m { tag\u001b[33m:\u001b[39m \u001b[32m'@drill'\u001b[39m }\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ productsPage }) \u001b[33m=>\u001b[39m {"
+           },
+           "errors": [
+            {
+             "location": {
+              "file": "<repo>\\tests\\drill\\cart-badge.drill.spec.ts",
+              "column": 19,
+              "line": 31
+             },
+             "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"1\"\u001b[39m\nReceived: \u001b[31m\"0\"\u001b[39m\n\n  29 |     // reads the old value \"0\". A plain `expect(value)` never retries.\n  30 |     const badge = await page.getByTestId('cart-count').textContent();\n> 31 |     expect(badge).toBe('1');\n     |                   ^\n  32 |   });\n  33 |\n  34 |   test('FIXED: badge shows 1 after adding a product', { tag: '@drill' }, async ({ productsPage }) => {\n    at <repo>\\tests\\drill\\cart-badge.drill.spec.ts:31:19"
+            }
+           ],
+           "stdout": [],
+           "stderr": [],
+           "retry": 1,
+           "startTime": "2026-11-25T13:20:21.228Z",
+           "annotations": [],
+           "attachments": [],
+           "errorLocation": {
+            "file": "<repo>\\tests\\drill\\cart-badge.drill.spec.ts",
+            "column": 19,
+            "line": 31
+           }
+          },
+          {
+           "workerIndex": 9,
+           "parallelIndex": 0,
+           "status": "failed",
+           "duration": 422,
+           "error": {
+            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"1\"\u001b[39m\nReceived: \u001b[31m\"0\"\u001b[39m",
+            "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"1\"\u001b[39m\nReceived: \u001b[31m\"0\"\u001b[39m\n    at <repo>\\tests\\drill\\cart-badge.drill.spec.ts:31:19",
+            "location": {
+             "file": "<repo>\\tests\\drill\\cart-badge.drill.spec.ts",
+             "column": 19,
+             "line": 31
+            },
+            "snippet": " \u001b[90m 29 |\u001b[39m     \u001b[90m// reads the old value \"0\". A plain `expect(value)` never retries.\u001b[39m\n \u001b[90m 30 |\u001b[39m     \u001b[36mconst\u001b[39m badge \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m'cart-count'\u001b[39m)\u001b[33m.\u001b[39mtextContent()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 31 |\u001b[39m     expect(badge)\u001b[33m.\u001b[39mtoBe(\u001b[32m'1'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 32 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 33 |\u001b[39m\n \u001b[90m 34 |\u001b[39m   test(\u001b[32m'FIXED: badge shows 1 after adding a product'\u001b[39m\u001b[33m,\u001b[39m { tag\u001b[33m:\u001b[39m \u001b[32m'@drill'\u001b[39m }\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ productsPage }) \u001b[33m=>\u001b[39m {"
+           },
+           "errors": [
+            {
+             "location": {
+              "file": "<repo>\\tests\\drill\\cart-badge.drill.spec.ts",
+              "column": 19,
+              "line": 31
+             },
+             "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"1\"\u001b[39m\nReceived: \u001b[31m\"0\"\u001b[39m\n\n  29 |     // reads the old value \"0\". A plain `expect(value)` never retries.\n  30 |     const badge = await page.getByTestId('cart-count').textContent();\n> 31 |     expect(badge).toBe('1');\n     |                   ^\n  32 |   });\n  33 |\n  34 |   test('FIXED: badge shows 1 after adding a product', { tag: '@drill' }, async ({ productsPage }) => {\n    at <repo>\\tests\\drill\\cart-badge.drill.spec.ts:31:19"
+            }
+           ],
+           "stdout": [],
+           "stderr": [],
+           "retry": 2,
+           "startTime": "2026-11-25T13:20:23.040Z",
+           "annotations": [],
+           "attachments": [],
+           "errorLocation": {
+            "file": "<repo>\\tests\\drill\\cart-badge.drill.spec.ts",
+            "column": 19,
+            "line": 31
+           }
+          }
+         ],
+         "status": "unexpected"
+        },
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "drill",
+         "projectName": "drill",
+         "results": [
+          {
+           "workerIndex": 2,
+           "parallelIndex": 2,
+           "status": "passed",
+           "duration": 871,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:19.011Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        },
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "drill",
+         "projectName": "drill",
+         "results": [
+          {
+           "workerIndex": 4,
+           "parallelIndex": 1,
+           "status": "passed",
+           "duration": 726,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:20.864Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        },
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "drill",
+         "projectName": "drill",
+         "results": [
+          {
+           "workerIndex": 6,
+           "parallelIndex": 2,
+           "status": "passed",
+           "duration": 685,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:20.946Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "ce3c4e3d01fd9093b2cf-9b420782c144995052d3",
+       "file": "drill/cart-badge.drill.spec.ts",
+       "line": 21,
+       "column": 3
+      },
+      {
+       "title": "FIXED: badge shows 1 after adding a product",
+       "ok": true,
+       "tags": [
+        "drill"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [
+          {
+           "type": "skip",
+           "description": "Running the broken variant",
+           "location": {
+            "file": "<repo>\\tests\\drill\\cart-badge.drill.spec.ts",
+            "line": 35,
+            "column": 10
+           }
+          }
+         ],
+         "expectedStatus": "skipped",
+         "projectId": "drill",
+         "projectName": "drill",
+         "results": [
+          {
+           "workerIndex": 1,
+           "parallelIndex": 1,
+           "status": "skipped",
+           "duration": 558,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:19.013Z",
+           "annotations": [
+            {
+             "type": "skip",
+             "description": "Running the broken variant",
+             "location": {
+              "file": "<repo>\\tests\\drill\\cart-badge.drill.spec.ts",
+              "line": 35,
+              "column": 10
+             }
+            }
+           ],
+           "attachments": []
+          }
+         ],
+         "status": "skipped"
+        },
+        {
+         "timeout": 30000,
+         "annotations": [
+          {
+           "type": "skip",
+           "description": "Running the broken variant",
+           "location": {
+            "file": "<repo>\\tests\\drill\\cart-badge.drill.spec.ts",
+            "line": 35,
+            "column": 10
+           }
+          }
+         ],
+         "expectedStatus": "skipped",
+         "projectId": "drill",
+         "projectName": "drill",
+         "results": [
+          {
+           "workerIndex": 3,
+           "parallelIndex": 3,
+           "status": "skipped",
+           "duration": 592,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:19.030Z",
+           "annotations": [
+            {
+             "type": "skip",
+             "description": "Running the broken variant",
+             "location": {
+              "file": "<repo>\\tests\\drill\\cart-badge.drill.spec.ts",
+              "line": 35,
+              "column": 10
+             }
+            }
+           ],
+           "attachments": []
+          }
+         ],
+         "status": "skipped"
+        },
+        {
+         "timeout": 30000,
+         "annotations": [
+          {
+           "type": "skip",
+           "description": "Running the broken variant",
+           "location": {
+            "file": "<repo>\\tests\\drill\\cart-badge.drill.spec.ts",
+            "line": 35,
+            "column": 10
+           }
+          }
+         ],
+         "expectedStatus": "skipped",
+         "projectId": "drill",
+         "projectName": "drill",
+         "results": [
+          {
+           "workerIndex": 5,
+           "parallelIndex": 3,
+           "status": "skipped",
+           "duration": 461,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:20.870Z",
+           "annotations": [
+            {
+             "type": "skip",
+             "description": "Running the broken variant",
+             "location": {
+              "file": "<repo>\\tests\\drill\\cart-badge.drill.spec.ts",
+              "line": 35,
+              "column": 10
+             }
+            }
+           ],
+           "attachments": []
+          }
+         ],
+         "status": "skipped"
+        },
+        {
+         "timeout": 30000,
+         "annotations": [
+          {
+           "type": "skip",
+           "description": "Running the broken variant",
+           "location": {
+            "file": "<repo>\\tests\\drill\\cart-badge.drill.spec.ts",
+            "line": 35,
+            "column": 10
+           }
+          }
+         ],
+         "expectedStatus": "skipped",
+         "projectId": "drill",
+         "projectName": "drill",
+         "results": [
+          {
+           "workerIndex": 8,
+           "parallelIndex": 3,
+           "status": "skipped",
+           "duration": 223,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:22.628Z",
+           "annotations": [
+            {
+             "type": "skip",
+             "description": "Running the broken variant",
+             "location": {
+              "file": "<repo>\\tests\\drill\\cart-badge.drill.spec.ts",
+              "line": 35,
+              "column": 10
+             }
+            }
+           ],
+           "attachments": []
+          }
+         ],
+         "status": "skipped"
+        }
+       ],
+       "id": "ce3c4e3d01fd9093b2cf-f648b305337eeccd3530",
+       "file": "drill/cart-badge.drill.spec.ts",
+       "line": 34,
+       "column": 3
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "errors": [],
+ "stats": {
+  "startTime": "2026-11-25T13:20:16.169Z",
+  "duration": 7726.865000000001,
+  "expected": 3,
+  "skipped": 4,
+  "unexpected": 1,
+  "flaky": 0
+ }
+}

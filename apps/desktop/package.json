@@ -1,0 +1,8 @@
+{
+  "name": "lab-notes",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Demo Electron notes app (system under test for playwright-e2e-lab).",
+  "type": "commonjs",
+  "main": "dist/main.js"
+}

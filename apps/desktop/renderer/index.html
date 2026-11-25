@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'" />
+    <title>Lab Notes</title>
+    <style>
+      :root { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; color: #1d2430; background: #f6f7f9; }
+      body { margin: 0; height: 100vh; display: grid; grid-template-rows: auto 1fr auto; }
+      header { display: flex; gap: 8px; align-items: center; padding: 10px 16px; background: #fff; border-bottom: 1px solid #dde1e7; }
+      header h1 { font-size: 16px; margin: 0 auto 0 0; }
+      .layout { display: grid; grid-template-columns: 260px 1fr; min-height: 0; }
+      aside { border-right: 1px solid #dde1e7; padding: 12px; overflow: auto; background: #fff; }
+      aside input { width: 100%; }
+      ul { list-style: none; padding: 0; margin: 8px 0; }
+      li button { width: 100%; text-align: left; background: none; border: none; padding: 8px; border-radius: 6px; color: inherit; cursor: pointer; }
+      li button[aria-current='true'] { background: #e7efff; }
+      form { padding: 16px; display: grid; gap: 10px; grid-template-rows: auto 1fr auto; min-height: 0; }
+      input, textarea { font: inherit; padding: 8px; border: 1px solid #dde1e7; border-radius: 6px; }
+      textarea { resize: none; min-height: 200px; }
+      button { font: inherit; padding: 6px 12px; border-radius: 6px; border: 1px solid #2f6fde; background: #2f6fde; color: #fff; cursor: pointer; }
+      button.secondary { background: #fff; color: #2f6fde; }
+      button.danger { background: #c0392b; border-color: #c0392b; }
+      button:disabled { opacity: 0.5; }
+      .actions { display: flex; gap: 8px; }
+      footer { padding: 6px 16px; font-size: 13px; background: #fff; border-top: 1px solid #dde1e7; display: flex; justify-content: space-between; }
+      footer [data-kind='error'] { color: #c0392b; }
+      .muted { color: #5b6473; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Lab Notes</h1>
+      <button type="button" data-testid="new-note">New note</button>
+      <button type="button" class="secondary" data-testid="import">Import…</button>
+      <button type="button" class="secondary" data-testid="export">Export…</button>
+    </header>
+    <div class="layout">
+      <aside>
+        <input type="search" placeholder="Search notes" aria-label="Search notes" data-testid="search" />
+        <p class="muted" data-testid="empty-state">No notes yet. Create one or import a file.</p>
+        <ul data-testid="note-list" aria-label="Notes"></ul>
+      </aside>
+      <form data-testid="editor" novalidate>
+        <input aria-label="Title" placeholder="Title" data-testid="note-title" />
+        <textarea aria-label="Body" placeholder="Write something…" data-testid="note-body"></textarea>
+        <div class="actions">
+          <button type="submit" data-testid="save-note">Save</button>
+          <button type="button" class="danger" data-testid="delete-note" disabled>Delete</button>
+        </div>
+      </form>
+    </div>
+    <footer>
+      <div role="status" aria-live="polite" data-testid="status">Loading…</div>
+      <span class="muted" data-testid="note-count"></span>
+    </footer>
+    <script src="../dist/renderer.js"></script>
+  </body>
+</html>

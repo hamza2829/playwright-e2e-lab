@@ -1,0 +1,65 @@
+name: GenAI (local model)
+
+# Optional: drafts tests with a small open-weights model served by Ollama on the
+# runner itself. The model is downloaded at run time; no API key, no account,
+# no secrets. Results go to the job summary and an artifact.
+
+on:
+  workflow_dispatch:
+    inputs:
+      model:
+        description: Ollama model tag
+        type: string
+        default: qwen2.5-coder:1.5b
+
+permissions:
+  contents: read
+
+jobs:
+  local-model:
+    name: Draft with ${{ inputs.model }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      CI: 'true'
+      ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
+      OLLAMA_MODEL: ${{ inputs.model }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+
+      - name: Install Ollama
+        run: curl -fsSL https://ollama.com/install.sh | sh
+      - name: Start Ollama and pull the model
+        run: |
+          if ! curl -sf http://127.0.0.1:11434/api/version > /dev/null; then
+            nohup ollama serve > ollama.log 2>&1 &
+          fi
+          for i in $(seq 1 60); do curl -sf http://127.0.0.1:11434/api/version && break; sleep 1; done
+          ollama pull "$OLLAMA_MODEL"
+          ollama list
+
+      - name: Draft tests from user stories
+        run: npm run genai:draft -- --adapter ollama --out genai/out/drafts/ollama --save-prompts
+      - name: Execute the raw drafts against the app
+        run: npx playwright test --project=genai-drafts || echo "::notice::Some raw drafts failed; see the evaluation."
+        env:
+          GENAI_DRAFTS_DIR: genai/out/drafts/ollama
+          REPORT_DIR: genai/out/run
+      - name: Evaluate drafts against the reviewed tests
+        run: npm run genai:evaluate -- --adapter ollama --drafts genai/out/drafts/ollama --results genai/out/run/results.json --out genai/out/evaluation-ollama.md --json genai/out/evaluation-ollama.json
+      - uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: genai-evaluation-ollama
+          path: |
+            genai/out/
+            playwright-report/
+            ollama.log
+          retention-days: 30
+          if-no-files-found: warn

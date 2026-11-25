@@ -1,0 +1,1543 @@
+{
+ "config": {
+  "argv": [
+   "C:\\Program Files\\nodejs\\node.exe",
+   "<repo>\\node_modules\\@playwright\\test\\cli.js",
+   "test",
+   "--project=chromium"
+  ],
+  "configFile": "<repo>\\playwright.config.ts",
+  "rootDir": "<repo>/tests",
+  "failOnFlakyTests": false,
+  "forbidOnly": false,
+  "fullyParallel": true,
+  "globalSetup": null,
+  "globalTeardown": null,
+  "globalTimeout": 0,
+  "grep": {},
+  "grepInvert": null,
+  "maxFailures": 0,
+  "metadata": {
+   "actualWorkers": 4
+  },
+  "preserveOutput": "always",
+  "projects": [
+   {
+    "outputDir": "<repo>/test-results",
+    "repeatEach": 1,
+    "retries": 0,
+    "metadata": {
+     "actualWorkers": 4
+    },
+    "id": "chromium",
+    "name": "chromium",
+    "testDir": "<repo>/tests/web",
+    "testIgnore": [],
+    "testMatch": [
+     "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+    ],
+    "timeout": 30000
+   },
+   {
+    "outputDir": "<repo>/test-results",
+    "repeatEach": 1,
+    "retries": 0,
+    "metadata": {
+     "actualWorkers": 4
+    },
+    "id": "firefox",
+    "name": "firefox",
+    "testDir": "<repo>/tests/web",
+    "testIgnore": [],
+    "testMatch": [
+     "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+    ],
+    "timeout": 30000
+   },
+   {
+    "outputDir": "<repo>/test-results",
+    "repeatEach": 1,
+    "retries": 0,
+    "metadata": {
+     "actualWorkers": 4
+    },
+    "id": "webkit",
+    "name": "webkit",
+    "testDir": "<repo>/tests/web",
+    "testIgnore": [],
+    "testMatch": [
+     "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+    ],
+    "timeout": 30000
+   },
+   {
+    "outputDir": "<repo>/test-results",
+    "repeatEach": 1,
+    "retries": 0,
+    "metadata": {
+     "actualWorkers": 4
+    },
+    "id": "desktop",
+    "name": "desktop",
+    "testDir": "<repo>/tests/desktop",
+    "testIgnore": [],
+    "testMatch": [
+     "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+    ],
+    "timeout": 60000
+   }
+  ],
+  "filteredProjects": [
+   {
+    "grep": {},
+    "grepInvert": null,
+    "outputDir": "<repo>\\test-results",
+    "repeatEach": 1,
+    "retries": 0,
+    "metadata": {
+     "actualWorkers": 4
+    },
+    "name": "chromium",
+    "testDir": "<repo>\\tests\\web",
+    "snapshotDir": "<repo>\\tests\\web",
+    "testIgnore": [],
+    "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+    "timeout": 30000,
+    "use": {
+     "baseURL": "http://localhost:3100",
+     "testIdAttribute": "data-testid",
+     "trace": "retain-on-failure",
+     "screenshot": "only-on-failure",
+     "video": "retain-on-failure",
+     "actionTimeout": 10000,
+     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/159.0.8154.6 Safari/537.36",
+     "viewport": {
+      "width": 1280,
+      "height": 720
+     },
+     "screen": {
+      "width": 1920,
+      "height": 1080
+     },
+     "deviceScaleFactor": 1,
+     "isMobile": false,
+     "hasTouch": false,
+     "defaultBrowserType": "chromium"
+    },
+    "dependencies": [],
+    "ignoreSnapshots": false,
+    "__projectId": "chromium"
+   }
+  ],
+  "quiet": false,
+  "reporter": [
+   [
+    "list",
+    null
+   ],
+   [
+    "html",
+    {
+     "outputFolder": "playwright-report",
+     "open": "never"
+    }
+   ],
+   [
+    "json",
+    {
+     "outputFile": "reports/sample-web/results.json"
+    }
+   ],
+   [
+    "junit",
+    {
+     "outputFile": "reports/sample-web/junit.xml"
+    }
+   ]
+  ],
+  "reportSlowTests": {
+   "max": 5,
+   "threshold": 300000
+  },
+  "shard": null,
+  "tags": [],
+  "updateSnapshots": "default",
+  "updateSourceMethod": "patch",
+  "version": "1.65.1",
+  "workers": 4,
+  "webServer": {
+   "command": "npx tsx apps/web/src/server.ts",
+   "url": "http://localhost:3100/api/health",
+   "reuseExistingServer": true,
+   "timeout": 60000,
+   "env": {
+    "PORT": "3100",
+    "CART_LATENCY_MS": "0"
+   },
+   "stdout": "ignore",
+   "stderr": "pipe"
+  }
+ },
+ "suites": [
+  {
+   "title": "web\\admin.spec.ts",
+   "file": "web/admin.spec.ts",
+   "column": 0,
+   "line": 0,
+   "specs": [],
+   "suites": [
+    {
+     "title": "Admin page",
+     "file": "web/admin.spec.ts",
+     "line": 3,
+     "column": 6,
+     "specs": [],
+     "suites": [
+      {
+       "title": "as admin",
+       "file": "web/admin.spec.ts",
+       "line": 4,
+       "column": 8,
+       "specs": [
+        {
+         "title": "admin creates a product that customers can see",
+         "ok": true,
+         "tags": [
+          "smoke",
+          "regression"
+         ],
+         "tests": [
+          {
+           "timeout": 30000,
+           "annotations": [],
+           "expectedStatus": "passed",
+           "projectId": "chromium",
+           "projectName": "chromium",
+           "results": [
+            {
+             "workerIndex": 0,
+             "parallelIndex": 0,
+             "status": "passed",
+             "duration": 1140,
+             "errors": [],
+             "stdout": [],
+             "stderr": [],
+             "retry": 0,
+             "startTime": "2026-11-25T13:20:28.953Z",
+             "annotations": [],
+             "attachments": []
+            }
+           ],
+           "status": "expected"
+          }
+         ],
+         "id": "d4043a9dd1ab94463227-73f1f0c324d9a2ddc2e6",
+         "file": "web/admin.spec.ts",
+         "line": 7,
+         "column": 5
+        },
+        {
+         "title": "admin deletes a product",
+         "ok": true,
+         "tags": [
+          "regression"
+         ],
+         "tests": [
+          {
+           "timeout": 30000,
+           "annotations": [],
+           "expectedStatus": "passed",
+           "projectId": "chromium",
+           "projectName": "chromium",
+           "results": [
+            {
+             "workerIndex": 1,
+             "parallelIndex": 1,
+             "status": "passed",
+             "duration": 980,
+             "errors": [],
+             "stdout": [],
+             "stderr": [],
+             "retry": 0,
+             "startTime": "2026-11-25T13:20:28.981Z",
+             "annotations": [],
+             "attachments": []
+            }
+           ],
+           "status": "expected"
+          }
+         ],
+         "id": "d4043a9dd1ab94463227-4f6eae3ffe113186d046",
+         "file": "web/admin.spec.ts",
+         "line": 23,
+         "column": 5
+        },
+        {
+         "title": "invalid product input is rejected",
+         "ok": true,
+         "tags": [
+          "regression"
+         ],
+         "tests": [
+          {
+           "timeout": 30000,
+           "annotations": [],
+           "expectedStatus": "passed",
+           "projectId": "chromium",
+           "projectName": "chromium",
+           "results": [
+            {
+             "workerIndex": 2,
+             "parallelIndex": 2,
+             "status": "passed",
+             "duration": 921,
+             "errors": [],
+             "stdout": [],
+             "stderr": [],
+             "retry": 0,
+             "startTime": "2026-11-25T13:20:29.012Z",
+             "annotations": [],
+             "attachments": []
+            }
+           ],
+           "status": "expected"
+          }
+         ],
+         "id": "d4043a9dd1ab94463227-35f2af3c960661595487",
+         "file": "web/admin.spec.ts",
+         "line": 32,
+         "column": 5
+        },
+        {
+         "title": "orders placed by customers appear in the admin order list",
+         "ok": true,
+         "tags": [
+          "regression"
+         ],
+         "tests": [
+          {
+           "timeout": 30000,
+           "annotations": [],
+           "expectedStatus": "passed",
+           "projectId": "chromium",
+           "projectName": "chromium",
+           "results": [
+            {
+             "workerIndex": 3,
+             "parallelIndex": 3,
+             "status": "passed",
+             "duration": 895,
+             "errors": [],
+             "stdout": [],
+             "stderr": [],
+             "retry": 0,
+             "startTime": "2026-11-25T13:20:28.936Z",
+             "annotations": [],
+             "attachments": []
+            }
+           ],
+           "status": "expected"
+          }
+         ],
+         "id": "d4043a9dd1ab94463227-41804424221150b1693d",
+         "file": "web/admin.spec.ts",
+         "line": 38,
+         "column": 5
+        }
+       ]
+      },
+      {
+       "title": "as customer",
+       "file": "web/admin.spec.ts",
+       "line": 60,
+       "column": 8,
+       "specs": [
+        {
+         "title": "customer is denied access to the admin page",
+         "ok": true,
+         "tags": [
+          "smoke",
+          "regression"
+         ],
+         "tests": [
+          {
+           "timeout": 30000,
+           "annotations": [],
+           "expectedStatus": "passed",
+           "projectId": "chromium",
+           "projectName": "chromium",
+           "results": [
+            {
+             "workerIndex": 3,
+             "parallelIndex": 3,
+             "status": "passed",
+             "duration": 495,
+             "errors": [],
+             "stdout": [],
+             "stderr": [],
+             "retry": 0,
+             "startTime": "2026-11-25T13:20:30.036Z",
+             "annotations": [],
+             "attachments": []
+            }
+           ],
+           "status": "expected"
+          }
+         ],
+         "id": "d4043a9dd1ab94463227-8590ba07ca387f5fdfba",
+         "file": "web/admin.spec.ts",
+         "line": 63,
+         "column": 5
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "web\\api.spec.ts",
+   "file": "web/api.spec.ts",
+   "column": 0,
+   "line": 0,
+   "specs": [],
+   "suites": [
+    {
+     "title": "Shop API contract",
+     "file": "web/api.spec.ts",
+     "line": 4,
+     "column": 6,
+     "specs": [
+      {
+       "title": "cart endpoints require authentication",
+       "ok": true,
+       "tags": [
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 1,
+           "parallelIndex": 1,
+           "status": "passed",
+           "duration": 38,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:30.229Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "1ea1b1599cbc08f16936-d4fc1c406e82153b3c68",
+       "file": "web/api.spec.ts",
+       "line": 7,
+       "column": 3
+      },
+      {
+       "title": "admin endpoints reject customers",
+       "ok": true,
+       "tags": [
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 0,
+           "parallelIndex": 0,
+           "status": "passed",
+           "duration": 61,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:30.296Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "1ea1b1599cbc08f16936-90ed2724aac325f601dd",
+       "file": "web/api.spec.ts",
+       "line": 12,
+       "column": 3
+      },
+      {
+       "title": "checkout validates the payload",
+       "ok": true,
+       "tags": [
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 1,
+           "parallelIndex": 1,
+           "status": "passed",
+           "duration": 41,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:30.302Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "1ea1b1599cbc08f16936-c5e18c92a711293a0d81",
+       "file": "web/api.spec.ts",
+       "line": 23,
+       "column": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "web\\auth.spec.ts",
+   "file": "web/auth.spec.ts",
+   "column": 0,
+   "line": 0,
+   "specs": [],
+   "suites": [
+    {
+     "title": "Login",
+     "file": "web/auth.spec.ts",
+     "line": 3,
+     "column": 6,
+     "specs": [
+      {
+       "title": "customer can sign in with valid credentials",
+       "ok": true,
+       "tags": [
+        "smoke",
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 2,
+           "parallelIndex": 2,
+           "status": "passed",
+           "duration": 587,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:30.318Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "d748ac400d08b85935ef-ce8d9b9978e8aaff8a9c",
+       "file": "web/auth.spec.ts",
+       "line": 4,
+       "column": 3
+      },
+      {
+       "title": "seeded demo admin can sign in and sees the admin link",
+       "ok": true,
+       "tags": [
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 1,
+           "parallelIndex": 1,
+           "status": "passed",
+           "duration": 650,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:30.400Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "d748ac400d08b85935ef-a3084c5337d463e2b349",
+       "file": "web/auth.spec.ts",
+       "line": 19,
+       "column": 3
+      },
+      {
+       "title": "wrong password shows an error and stays on the login page",
+       "ok": true,
+       "tags": [
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 0,
+           "parallelIndex": 0,
+           "status": "passed",
+           "duration": 611,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:30.401Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "d748ac400d08b85935ef-85cbe23109c92c1d3223",
+       "file": "web/auth.spec.ts",
+       "line": 26,
+       "column": 3
+      },
+      {
+       "title": "protected page redirects a guest to login and back after sign-in",
+       "ok": true,
+       "tags": [
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 3,
+           "parallelIndex": 3,
+           "status": "passed",
+           "duration": 585,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:30.571Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "d748ac400d08b85935ef-6a88192f0640165dd3a5",
+       "file": "web/auth.spec.ts",
+       "line": 34,
+       "column": 3
+      }
+     ]
+    },
+    {
+     "title": "Logout",
+     "file": "web/auth.spec.ts",
+     "line": 44,
+     "column": 6,
+     "specs": [
+      {
+       "title": "signed-in customer can log out",
+       "ok": true,
+       "tags": [
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 2,
+           "parallelIndex": 2,
+           "status": "passed",
+           "duration": 601,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:30.926Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "d748ac400d08b85935ef-20316ef19bb1b00efc66",
+       "file": "web/auth.spec.ts",
+       "line": 47,
+       "column": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "web\\cart.spec.ts",
+   "file": "web/cart.spec.ts",
+   "column": 0,
+   "line": 0,
+   "specs": [],
+   "suites": [
+    {
+     "title": "Cart",
+     "file": "web/cart.spec.ts",
+     "line": 5,
+     "column": 6,
+     "specs": [
+      {
+       "title": "adding a product updates the cart badge and the cart page",
+       "ok": true,
+       "tags": [
+        "smoke",
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 0,
+           "parallelIndex": 0,
+           "status": "passed",
+           "duration": 790,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:31.044Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "1981448f0b79506fb670-0e9ca377169bdf13c60f",
+       "file": "web/cart.spec.ts",
+       "line": 6,
+       "column": 3
+      },
+      {
+       "title": "changing quantity recalculates totals and shipping",
+       "ok": true,
+       "tags": [
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 1,
+           "parallelIndex": 1,
+           "status": "passed",
+           "duration": 673,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:31.089Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "1981448f0b79506fb670-6b4d2019da97365bbf24",
+       "file": "web/cart.spec.ts",
+       "line": 18,
+       "column": 3
+      },
+      {
+       "title": "removing the last item shows the empty state",
+       "ok": true,
+       "tags": [
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 3,
+           "parallelIndex": 3,
+           "status": "passed",
+           "duration": 673,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:31.186Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "1981448f0b79506fb670-b57a9b7b988400382a5e",
+       "file": "web/cart.spec.ts",
+       "line": 35,
+       "column": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "web\\checkout.spec.ts",
+   "file": "web/checkout.spec.ts",
+   "column": 0,
+   "line": 0,
+   "specs": [],
+   "suites": [
+    {
+     "title": "Checkout",
+     "file": "web/checkout.spec.ts",
+     "line": 5,
+     "column": 6,
+     "specs": [
+      {
+       "title": "customer buys a product end to end",
+       "ok": true,
+       "tags": [
+        "smoke",
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 2,
+           "parallelIndex": 2,
+           "status": "passed",
+           "duration": 1101,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "steps": [
+            {
+             "title": "add a product from the catalog",
+             "duration": 204
+            },
+            {
+             "title": "review the cart",
+             "duration": 301
+            },
+            {
+             "title": "enter shipping details and place the order",
+             "duration": 243
+            },
+            {
+             "title": "order is confirmed and the cart is emptied",
+             "duration": 45
+            }
+           ],
+           "startTime": "2026-11-25T13:20:31.603Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "25ab1bfc84c57e3e3a45-4085b5ddf83f0f2f97a5",
+       "file": "web/checkout.spec.ts",
+       "line": 6,
+       "column": 3
+      },
+      {
+       "title": "missing and invalid fields are reported per field",
+       "ok": true,
+       "tags": [
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 1,
+           "parallelIndex": 1,
+           "status": "passed",
+           "duration": 797,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:31.802Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "25ab1bfc84c57e3e3a45-1f24bdb0bd28f912d582",
+       "file": "web/checkout.spec.ts",
+       "line": 32,
+       "column": 3
+      },
+      {
+       "title": "checkout with an empty cart is blocked",
+       "ok": true,
+       "tags": [
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 0,
+           "parallelIndex": 0,
+           "status": "passed",
+           "duration": 482,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:31.882Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "25ab1bfc84c57e3e3a45-ba2c12a8fd0ac88cf0e6",
+       "file": "web/checkout.spec.ts",
+       "line": 48,
+       "column": 3
+      },
+      {
+       "title": "placing an order decrements stock",
+       "ok": true,
+       "tags": [
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 3,
+           "parallelIndex": 3,
+           "status": "passed",
+           "duration": 809,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:31.897Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "25ab1bfc84c57e3e3a45-b4dcabc2bc12246c3768",
+       "file": "web/checkout.spec.ts",
+       "line": 54,
+       "column": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "web\\generated\\checkout-happy-path.spec.ts",
+   "file": "web/generated/checkout-happy-path.spec.ts",
+   "column": 0,
+   "line": 0,
+   "specs": [],
+   "suites": [
+    {
+     "title": "Place an order",
+     "file": "web/generated/checkout-happy-path.spec.ts",
+     "line": 7,
+     "column": 6,
+     "specs": [
+      {
+       "title": "Checkout with valid details confirms the order",
+       "ok": true,
+       "tags": [
+        "smoke",
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 0,
+           "parallelIndex": 0,
+           "status": "passed",
+           "duration": 975,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:32.395Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "57f74a9d194c45456829-9cb411977fc44734feab",
+       "file": "web/generated/checkout-happy-path.spec.ts",
+       "line": 8,
+       "column": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "web\\generated\\free-shipping.spec.ts",
+   "file": "web/generated/free-shipping.spec.ts",
+   "column": 0,
+   "line": 0,
+   "specs": [],
+   "suites": [
+    {
+     "title": "Free shipping over $50",
+     "file": "web/generated/free-shipping.spec.ts",
+     "line": 7,
+     "column": 6,
+     "specs": [
+      {
+       "title": "A keyboard order ships for free",
+       "ok": true,
+       "tags": [
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 1,
+           "parallelIndex": 1,
+           "status": "passed",
+           "duration": 719,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:32.651Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "e159b2a8f61e42b6de68-0453de7aa31145cc7abc",
+       "file": "web/generated/free-shipping.spec.ts",
+       "line": 8,
+       "column": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "web\\generated\\login-error.spec.ts",
+   "file": "web/generated/login-error.spec.ts",
+   "column": 0,
+   "line": 0,
+   "specs": [],
+   "suites": [
+    {
+     "title": "Helpful login errors",
+     "file": "web/generated/login-error.spec.ts",
+     "line": 7,
+     "column": 6,
+     "specs": [
+      {
+       "title": "Wrong password is rejected",
+       "ok": true,
+       "tags": [
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 2,
+           "parallelIndex": 2,
+           "status": "passed",
+           "duration": 593,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:32.746Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "17a92b1b82bef3137e81-7c9cd88b6897874a09b7",
+       "file": "web/generated/login-error.spec.ts",
+       "line": 8,
+       "column": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "web\\generated\\out-of-stock.spec.ts",
+   "file": "web/generated/out-of-stock.spec.ts",
+   "column": 0,
+   "line": 0,
+   "specs": [],
+   "suites": [
+    {
+     "title": "Out-of-stock products",
+     "file": "web/generated/out-of-stock.spec.ts",
+     "line": 10,
+     "column": 6,
+     "specs": [
+      {
+       "title": "A product with no stock cannot be added",
+       "ok": true,
+       "tags": [
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 3,
+           "parallelIndex": 3,
+           "status": "passed",
+           "duration": 611,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:32.747Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "89258a2249512aa2a8c7-3a2de5b1b1cade4bd572",
+       "file": "web/generated/out-of-stock.spec.ts",
+       "line": 11,
+       "column": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "web\\generated\\quantity-subtotal.spec.ts",
+   "file": "web/generated/quantity-subtotal.spec.ts",
+   "column": 0,
+   "line": 0,
+   "specs": [],
+   "suites": [
+    {
+     "title": "Change quantities in the cart",
+     "file": "web/generated/quantity-subtotal.spec.ts",
+     "line": 8,
+     "column": 6,
+     "specs": [
+      {
+       "title": "Raising the quantity updates the subtotal",
+       "ok": true,
+       "tags": [
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 2,
+           "parallelIndex": 2,
+           "status": "passed",
+           "duration": 901,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:33.371Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "50d4270cacee45e4a031-7bd98a4fec71409d18b2",
+       "file": "web/generated/quantity-subtotal.spec.ts",
+       "line": 9,
+       "column": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "web\\generated\\remove-from-cart.spec.ts",
+   "file": "web/generated/remove-from-cart.spec.ts",
+   "column": 0,
+   "line": 0,
+   "specs": [],
+   "suites": [
+    {
+     "title": "Remove an item from the cart",
+     "file": "web/generated/remove-from-cart.spec.ts",
+     "line": 7,
+     "column": 6,
+     "specs": [
+      {
+       "title": "Removing the only item empties the cart",
+       "ok": true,
+       "tags": [
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 3,
+           "parallelIndex": 3,
+           "status": "passed",
+           "duration": 803,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:33.388Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "7039e591f3c95a6a5898-92476156726c48828f3e",
+       "file": "web/generated/remove-from-cart.spec.ts",
+       "line": 8,
+       "column": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "web\\generated\\search-products.spec.ts",
+   "file": "web/generated/search-products.spec.ts",
+   "column": 0,
+   "line": 0,
+   "specs": [],
+   "suites": [
+    {
+     "title": "Search the catalog",
+     "file": "web/generated/search-products.spec.ts",
+     "line": 7,
+     "column": 6,
+     "specs": [
+      {
+       "title": "Searching by name narrows the list",
+       "ok": true,
+       "tags": [
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 0,
+           "parallelIndex": 0,
+           "status": "passed",
+           "duration": 634,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:33.421Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "d46ccca9e167fc08a308-a2cfaf6478dec2a2062b",
+       "file": "web/generated/search-products.spec.ts",
+       "line": 8,
+       "column": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "web\\products.spec.ts",
+   "file": "web/products.spec.ts",
+   "column": 0,
+   "line": 0,
+   "specs": [],
+   "suites": [
+    {
+     "title": "Product list",
+     "file": "web/products.spec.ts",
+     "line": 5,
+     "column": 6,
+     "specs": [
+      {
+       "title": "shows the seeded catalog with prices",
+       "ok": true,
+       "tags": [
+        "smoke",
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 1,
+           "parallelIndex": 1,
+           "status": "passed",
+           "duration": 651,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:33.421Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "000c94276132c4f97581-9a8facf9b0ab80bdfff2",
+       "file": "web/products.spec.ts",
+       "line": 6,
+       "column": 3
+      },
+      {
+       "title": "search filters by name and category",
+       "ok": true,
+       "tags": [
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 0,
+           "parallelIndex": 0,
+           "status": "passed",
+           "duration": 471,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:34.089Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "000c94276132c4f97581-59951741d786d8c1b85a",
+       "file": "web/products.spec.ts",
+       "line": 14,
+       "column": 3
+      },
+      {
+       "title": "out-of-stock product cannot be added to the cart",
+       "ok": true,
+       "tags": [
+        "regression"
+       ],
+       "tests": [
+        {
+         "timeout": 30000,
+         "annotations": [],
+         "expectedStatus": "passed",
+         "projectId": "chromium",
+         "projectName": "chromium",
+         "results": [
+          {
+           "workerIndex": 1,
+           "parallelIndex": 1,
+           "status": "passed",
+           "duration": 456,
+           "errors": [],
+           "stdout": [],
+           "stderr": [],
+           "retry": 0,
+           "startTime": "2026-11-25T13:20:34.094Z",
+           "annotations": [],
+           "attachments": []
+          }
+         ],
+         "status": "expected"
+        }
+       ],
+       "id": "000c94276132c4f97581-7753568ced5f1fdd2d8a",
+       "file": "web/products.spec.ts",
+       "line": 29,
+       "column": 3
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "errors": [],
+ "stats": {
+  "startTime": "2026-11-25T13:20:25.910Z",
+  "duration": 8986.766,
+  "expected": 30,
+  "skipped": 0,
+  "unexpected": 0,
+  "flaky": 0
+ }
+}

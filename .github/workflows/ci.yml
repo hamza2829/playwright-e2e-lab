@@ -1,0 +1,235 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read # test-health job downloads report artifacts from earlier runs
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '20'
+  CI: 'true'
+
+jobs:
+  static:
+    name: Typecheck, unit tests, GenAI determinism
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Typecheck (tests, tools, web app, desktop app)
+        run: npm run typecheck
+      - name: Unit tests (report analyzer, GenAI helper)
+        run: npm run test:unit
+      - name: Mock GenAI drafts are reproducible
+        run: |
+          npm run genai:draft
+          git diff --exit-code -- genai/drafts/mock
+
+  smoke:
+    name: Smoke · chromium · ubuntu
+    needs: static
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Run @smoke tests
+        run: npx playwright test --project=chromium --grep @smoke
+      - uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report-smoke
+          path: playwright-report/
+          retention-days: 14
+
+  web:
+    name: Web · ${{ matrix.browser }} · ${{ matrix.os }}
+    needs: smoke
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        browser: [chromium, firefox, webkit]
+    env:
+      ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps ${{ matrix.browser }}
+      - name: Run web suite (@smoke + @regression)
+        run: npx playwright test --project=${{ matrix.browser }}
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report-web-${{ matrix.browser }}-${{ matrix.os }}
+          path: playwright-report/
+          retention-days: 14
+      - name: Upload JSON/JUnit results (input for test-health)
+        uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: json-report-web-${{ matrix.browser }}-${{ matrix.os }}
+          path: reports/
+          retention-days: 30
+      - name: Upload raw traces, screenshots and videos
+        uses: actions/upload-artifact@v7
+        if: ${{ failure() }}
+        with:
+          name: test-results-web-${{ matrix.browser }}-${{ matrix.os }}
+          path: test-results/
+          retention-days: 14
+
+  desktop:
+    name: Desktop (Electron) · ${{ matrix.os }}
+    needs: static
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    env:
+      SKIP_WEB_SERVER: '1'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Build the Electron app
+        run: npm run desktop:build
+      - name: Install Linux libraries and Xvfb
+        if: runner.os == 'Linux'
+        run: npx playwright install-deps chromium
+      - name: Run desktop suite (Linux, virtual display)
+        if: runner.os == 'Linux'
+        run: xvfb-run --auto-servernum -- npx playwright test --project=desktop
+      - name: Run desktop suite
+        if: runner.os != 'Linux'
+        run: npx playwright test --project=desktop
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report-desktop-${{ matrix.os }}
+          path: playwright-report/
+          retention-days: 14
+      - name: Upload JSON/JUnit results (input for test-health)
+        uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: json-report-desktop-${{ matrix.os }}
+          path: reports/
+          retention-days: 30
+      - name: Upload raw traces, screenshots and videos
+        uses: actions/upload-artifact@v7
+        if: ${{ failure() }}
+        with:
+          name: test-results-desktop-${{ matrix.os }}
+          path: test-results/
+          retention-days: 14
+
+  genai:
+    name: GenAI drafts · mock adapter
+    needs: static
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Draft tests from user stories (mock adapter, no secrets)
+        run: npm run genai:draft -- --adapter mock --out genai/out/drafts/mock --save-prompts
+      - name: Execute the raw drafts against the app
+        # Failing drafts are a measurement, not a CI failure.
+        run: npx playwright test --project=genai-drafts || echo "::notice::Some raw drafts failed; see the evaluation."
+        env:
+          GENAI_DRAFTS_DIR: genai/out/drafts/mock
+          REPORT_DIR: genai/out/run
+      - name: Evaluate drafts against the reviewed tests
+        run: npm run genai:evaluate -- --adapter mock --drafts genai/out/drafts/mock --results genai/out/run/results.json --out genai/out/evaluation-mock.md --json genai/out/evaluation-mock.json
+      - uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: genai-evaluation-mock
+          path: |
+            genai/out/
+            playwright-report/
+          retention-days: 14
+
+  test-health:
+    name: Test health · flaky & slow analysis
+    needs: [smoke, web, desktop]
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Download this run's JSON reports
+        uses: actions/download-artifact@v8
+        with:
+          pattern: json-report-*
+          path: history/current
+      - name: Download JSON reports from the last 5 completed runs on main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          CURRENT_RUN: ${{ github.run_id }}
+        run: |
+          ids=$(gh run list -R "$REPO" --workflow ci.yml --branch main --status completed --limit 6 --json databaseId -q '.[].databaseId' | grep -v "^${CURRENT_RUN}$" | head -5 || true)
+          for id in $ids; do
+            gh run download "$id" -R "$REPO" --pattern 'json-report-*' --dir "history/run-$id" || echo "No reports in run $id"
+          done
+          find history -name results.json | sort
+      - name: Analyze flaky and slow tests
+        run: npm run analyze -- history --slow-ms 5000 --top 8 --out test-health/report.md --json test-health/report.json
+      - uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: test-health-report
+          path: test-health/
+          retention-days: 30
