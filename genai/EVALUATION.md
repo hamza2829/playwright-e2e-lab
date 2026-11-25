@@ -36,4 +36,25 @@ CI repeats the measurement on every push (job **GenAI drafts · mock adapter**, 
 
 The **GenAI (local model)** workflow installs Ollama on the runner, pulls a small open-weights model at run time (default `qwen2.5-coder:1.5b`), drafts the same seven stories and evaluates the drafts against the same accepted tests. No API key, account or secret is involved.
 
-Results: see the job summary of the latest *GenAI (local model)* run. The numbers are added here after the first run.
+Measured in run [45673880607](https://github.com/hamza2829/playwright-e2e-lab/actions/runs/45673880607) with  (temperature 0, seed 42, CPU-only GitHub runner):
+
+| Metric | Mock adapter | qwen2.5-coder:1.5b |
+| --- | --- | --- |
+| Drafts that needed changes | 3 of 7 (43%) | **7 of 7 (100%)** |
+| Lines changed during review | 13 of 72 (18%) | 61 of 82 (74%) |
+| Drafts passing the automated checklist | 4 of 7 | 5 of 7 |
+| Raw drafts passing when executed | 7 of 7 | **0 of 7** |
+
+| Story | Executed as drafted | Checklist failures | Lines changed |
+| --- | --- | --- | ---: |
+| checkout-happy-path | error (did not load) | R2, R3 (no test() call) | 9 |
+| free-shipping | failed | none | 6 |
+| login-error | failed | none | 9 |
+| out-of-stock | failed | none | 10 |
+| quantity-subtotal | failed | R3 (2 tests for 1 scenario) | 13 |
+| remove-from-cart | failed | none | 6 |
+| search-products | failed | none | 8 |
+
+**What went wrong:** the drafts *look* right. They use the fixtures, tags and page objects, and five of seven pass the automated checklist. But the model invents page-object methods that do not exist (for example  instead of ). It also asserts the wrong field (subtotal instead of total) and once produced a file without a valid test. Every draft failed or errored when executed.
+
+So the two adapters fail in opposite ways. The mock is safe about the API but silently skips steps it does not know. The small model covers every step but invents API calls. Each failure is caught by a different safeguard: the checklist (R4, R5) for the mock, and running the draft (checklist item M4) for the model. Neither replaces review. A typed API reference in the prompt, or feeding  errors back to the model, are the obvious next experiments.

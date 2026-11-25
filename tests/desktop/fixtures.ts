@@ -13,8 +13,9 @@ import { NotesWindow } from './pages/NotesWindow.ts';
  * - Native file dialogs cannot be driven by Playwright, so tests stub
  *   dialog.showOpenDialog / showSaveDialog in the Electron main process.
  * - The runner takes failure screenshots of Electron windows from the config's
- *   `use` block, but video and a full DOM-snapshot trace need the launch
- *   options, so this fixture records both and attaches them only when a test fails.
+ *   `use` block. A full DOM-snapshot trace (and optional video, ELECTRON_VIDEO=1)
+ *   needs the launch options, so this fixture records them and attaches them only
+ *   when a test fails.
  */
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');

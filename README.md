@@ -75,7 +75,7 @@ CI uses 2 retries and 2 workers. A test that only passes on a retry is reported 
 
 1. Open a workflow run on the **Actions** tab. The **Summary** page shows annotations for failures, the **GenAI draft evaluation** table and the **Test health report** (flaky, consistently failing and slowest tests, with suggested fixes).
 2. Under **Artifacts**:
-   - `playwright-report-web-<browser>-<os>` / `playwright-report-desktop-<os>`: the HTML report. Unzip it and run `npx playwright show-report <folder>`, or open `index.html`. Use the *Flaky* and *Failed* filters. A failed test has its **trace** (step-by-step DOM snapshots, network and console), **screenshot** and **video**.
+   - `playwright-report-web-<browser>-<os>` / `playwright-report-desktop-<os>`: the HTML report. Unzip it and run `npx playwright show-report <folder>`, or open `index.html`. Use the *Flaky* and *Failed* filters. A failed test has its **trace** (step-by-step DOM snapshots, network and console), **screenshot** and, for web tests, **video**.
    - `json-report-*`: Playwright JSON and JUnit output. The test-health job reads these, plus the same artifacts from the last 5 runs on `main`.
    - `test-results-*` (only on failure): the raw trace, screenshot and video files.
    - `test-health-report`: `report.md` and `report.json` from the analyzer.
@@ -129,7 +129,7 @@ Demo accounts: `alice / alice123` (customer), `admin / admin123` (admin).
 - **The app exposes test hooks (`/api/test/*`), and the tests arrange data through the API.** UI tests then exercise only the UI they verify. This keeps them fast and independent, and makes parallel runs across browsers safe. The hooks can be turned off with `ENABLE_TEST_API=0`.
 - **Login state as a fixture option (`role`)** instead of a shared `storageState` file. Each test gets its own user, so no test can leak a cart or an order into another.
 - **Native file dialogs are stubbed** in the Electron main process (`dialog.showOpenDialog`), because the operating system's dialogs cannot be automated across platforms. The import/export logic underneath is real.
-- **Failure evidence only on failure** (`retain-on-failure` / `only-on-failure`), which keeps green runs small. The Electron fixture records its own video and DOM-snapshot trace, because those need launch options.
+- **Failure evidence only on failure** (`retain-on-failure` / `only-on-failure`), which keeps green runs small. For Electron, the runner adds failure screenshots and the fixture records a DOM-snapshot trace. Video is opt-in (`ELECTRON_VIDEO=1`): on CI virtual machines the Electron window never delivered a screencast frame, so recording stalled the first page load on every OS. The test-health history from the first CI runs still shows this.
 - **Locators:** roles and labels first, `data-testid` where there is no good accessible handle. Web-first assertions everywhere. The drill shows why.
 - **No merged cross-OS report.** Each matrix job publishes its own HTML report, and the analyzer combines the JSON reports. This avoids path problems when merging blob reports from different operating systems.
 - **Node 20 and Electron 39.** The spec requires Node 20. Electron 40 and later need Node 22.12 or newer to install, so the desktop app is pinned to Electron 39. Moving CI to Node 22 would allow the current Electron release.
