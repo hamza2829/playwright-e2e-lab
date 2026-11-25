@@ -120,6 +120,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
     env:
       SKIP_WEB_SERVER: '1'
+      DEBUG: pw:browser # Electron stdout/stderr in the log
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -177,14 +178,10 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - name: Draft tests from user stories (mock adapter, no secrets)
         run: npm run genai:draft -- --adapter mock --out genai/out/drafts/mock --save-prompts
-      - name: Execute the raw drafts against the app
-        # Failing drafts are a measurement, not a CI failure.
-        run: npx playwright test --project=genai-drafts || echo "::notice::Some raw drafts failed; see the evaluation."
-        env:
-          GENAI_DRAFTS_DIR: genai/out/drafts/mock
-          REPORT_DIR: genai/out/run
+      - name: Execute each raw draft against the app (one run per draft)
+        run: bash genai/run-drafts.sh genai/out/drafts/mock genai/out/run
       - name: Evaluate drafts against the reviewed tests
-        run: npm run genai:evaluate -- --adapter mock --drafts genai/out/drafts/mock --results genai/out/run/results.json --out genai/out/evaluation-mock.md --json genai/out/evaluation-mock.json
+        run: npm run genai:evaluate -- --adapter mock --drafts genai/out/drafts/mock --results genai/out/run --out genai/out/evaluation-mock.md --json genai/out/evaluation-mock.json
       - uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:

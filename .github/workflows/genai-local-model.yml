@@ -46,13 +46,10 @@ jobs:
 
       - name: Draft tests from user stories
         run: npm run genai:draft -- --adapter ollama --out genai/out/drafts/ollama --save-prompts
-      - name: Execute the raw drafts against the app
-        run: npx playwright test --project=genai-drafts || echo "::notice::Some raw drafts failed; see the evaluation."
-        env:
-          GENAI_DRAFTS_DIR: genai/out/drafts/ollama
-          REPORT_DIR: genai/out/run
+      - name: Execute each raw draft against the app (one run per draft)
+        run: bash genai/run-drafts.sh genai/out/drafts/ollama genai/out/run
       - name: Evaluate drafts against the reviewed tests
-        run: npm run genai:evaluate -- --adapter ollama --drafts genai/out/drafts/ollama --results genai/out/run/results.json --out genai/out/evaluation-ollama.md --json genai/out/evaluation-ollama.json
+        run: npm run genai:evaluate -- --adapter ollama --drafts genai/out/drafts/ollama --results genai/out/run --out genai/out/evaluation-ollama.md --json genai/out/evaluation-ollama.json
       - uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:

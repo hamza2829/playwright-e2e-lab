@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { review, type CheckResult } from './review.ts';
@@ -57,10 +58,32 @@ export function executionStatus(report: JsonReport | null, slug: string): Evalua
   return statuses.every((s) => s === 'expected' || s === 'flaky') ? 'passed' : 'failed';
 }
 
-export async function evaluate(stories: Story[], draftsDir: string, acceptedDir: string, resultsFile?: string): Promise<Evaluation[]> {
-  const report: JsonReport | null = resultsFile ? JSON.parse(await fs.readFile(resultsFile, 'utf8').catch(() => 'null')) : null;
+/**
+ * `results` is either one Playwright JSON report or a folder with one
+ * `<slug>/results.json` per draft. Running drafts one by one means a draft that
+ * cannot even be loaded only breaks its own run; a missing report is an 'error'.
+ */
+async function loadResults(results: string | undefined): Promise<(slug: string) => JsonReport | null | 'missing'> {
+  if (!results) return () => null;
+  const stat = await fs.stat(results).catch(() => null);
+  if (stat?.isDirectory()) {
+    return (slug) => {
+      try {
+        return JSON.parse(readFileSync(path.join(results, slug, 'results.json'), 'utf8')) as JsonReport;
+      } catch {
+        return 'missing';
+      }
+    };
+  }
+  const report: JsonReport | null = JSON.parse(await fs.readFile(results, 'utf8').catch(() => 'null'));
+  return () => report;
+}
+
+export async function evaluate(stories: Story[], draftsDir: string, acceptedDir: string, resultsPath?: string): Promise<Evaluation[]> {
+  const reportFor = await loadResults(resultsPath);
   const results: Evaluation[] = [];
   for (const story of stories) {
+    const report = reportFor(story.slug);
     const draft = await fs.readFile(path.join(draftsDir, `${story.slug}.spec.ts`), 'utf8').catch(() => '');
     const accepted = await fs.readFile(path.join(acceptedDir, `${story.slug}.spec.ts`), 'utf8').catch(() => '');
     const a = normalise(draft);
@@ -69,7 +92,7 @@ export async function evaluate(stories: Story[], draftsDir: string, acceptedDir:
       slug: story.slug,
       title: story.title,
       checks: review(draft, story),
-      execution: executionStatus(report, story.slug),
+      execution: report === 'missing' ? 'error' : executionStatus(report, story.slug),
       linesChanged: changed,
       draftLines: a.length,
       needsChanges: changed > 0,

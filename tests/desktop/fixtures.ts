@@ -73,7 +73,9 @@ export const test = base.extend<DesktopFixtures>({
       const app = await electron.launch({
         // --no-sandbox: GitHub's Ubuntu 24.04 runners restrict the unprivileged
         // user namespaces Chromium's sandbox needs. Only used for the test build.
-        args: [appDir, ...(process.platform === 'linux' ? ['--no-sandbox'] : [])],
+        // --disable-gpu: CI virtual machines have no GPU, and Electron's renderer can hang there
+        // before painting the first frame.
+        args: [appDir, '--disable-gpu', ...(process.platform === 'linux' ? ['--no-sandbox'] : [])],
         env: { ...process.env, NOTES_DATA_DIR: options.dataDir ?? dataDir },
         recordVideo: { dir: videoDir },
         timeout: 30_000,
