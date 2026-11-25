@@ -77,7 +77,9 @@ export const test = base.extend<DesktopFixtures>({
         // before painting the first frame.
         args: [appDir, '--disable-gpu', ...(process.platform === 'linux' ? ['--no-sandbox'] : [])],
         env: { ...process.env, NOTES_DATA_DIR: options.dataDir ?? dataDir },
-        recordVideo: { dir: videoDir },
+        // Opt-in: on CI virtual machines the window may never deliver a screencast frame,
+        // and video recording then stalls the first page load.
+        ...(process.env.ELECTRON_VIDEO === '1' ? { recordVideo: { dir: videoDir } } : {}),
         timeout: 30_000,
       });
       // The runner's own Electron trace has test steps only; this one adds DOM

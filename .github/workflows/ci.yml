@@ -135,10 +135,10 @@ jobs:
         run: npx playwright install-deps chromium
       - name: Run desktop suite (Linux, virtual display)
         if: runner.os == 'Linux'
-        run: xvfb-run --auto-servernum -- npx playwright test --project=desktop
+        run: xvfb-run --auto-servernum -- npx playwright test --project=desktop --max-failures=4
       - name: Run desktop suite
         if: runner.os != 'Linux'
-        run: npx playwright test --project=desktop
+        run: npx playwright test --project=desktop --max-failures=4
       - name: Upload HTML report
         uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
